@@ -27,7 +27,7 @@ class StatisticsController < ApplicationController
     state = AmericanState.where(state_name: params[:state].titleize).first
     county = County.where("county_name = ? AND american_state_id = ?", params[:county_name].titleize, state.id).first
     pop = Population.where("county_id = ? AND american_state_id = ?", county.id, state.id)
-    render json: pop
+    render json: pop.length > 0? pop : "No data for that county yet"
   end
 
 end
