@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170715160301) do
+ActiveRecord::Schema.define(version: 20170715172227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,4 +23,24 @@ ActiveRecord::Schema.define(version: 20170715160301) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "counties", force: :cascade do |t|
+    t.integer "fips_county_id"
+    t.string  "county_name"
+    t.integer "american_state_id"
+    t.index ["american_state_id"], name: "index_counties_on_american_state_id", using: :btree
+  end
+
+  create_table "populations", force: :cascade do |t|
+    t.integer "citizens_born_in_us"
+    t.integer "naturalized_citizens"
+    t.integer "non_citizens"
+    t.integer "american_state_id"
+    t.integer "county_id"
+    t.index ["american_state_id"], name: "index_populations_on_american_state_id", using: :btree
+    t.index ["county_id"], name: "index_populations_on_county_id", using: :btree
+  end
+
+  add_foreign_key "counties", "american_states"
+  add_foreign_key "populations", "american_states"
+  add_foreign_key "populations", "counties"
 end
