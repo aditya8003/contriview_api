@@ -1,0 +1,2 @@
+class AmericanState < ApplicationRecord
+end

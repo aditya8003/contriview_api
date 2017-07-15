@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+AmericanState.destroy_all
+
+File.open('db/states.txt').each do |line|
+  line = line.split("|")
+  AmericanState.create(
+    state_code: line[0],
+    state_abbrev: line[1],
+    state_name: line[2]
+  )
+end
