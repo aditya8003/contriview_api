@@ -30,13 +30,14 @@ end
 
 stats = HTTParty.get("http://api.census.gov/data/2015/acs5?get=B05001_002E,B05001_005E,B05001_006E&for=county:*&key=#{ENV["CENSUS_KEY"]}")
 stats = stats.body.split("],")
+stats = stats.drop(1)
 stats.each do |line|
   line = line.split(',')
   Population.create(
-    citizens_born_in_us: line[0] == "null" ? nil : line[0].gsub(/\D/, '').to_i,
-    naturalized_citizens: line[1] == "null" ? nil : line[1].gsub(/\D/, '').to_i,
-    non_citizens: line[2] == "null" ? nil : line[2].gsub(/\D/, '').to_i,
-    american_state: AmericanState.where(state_code: line[3].gsub(/\D/,'').to_i).first.id,
-    county: County.where(fips_county_id: line[4].gsub(/\D/, '').to_i).first.id
+    citizens_born_in_us: line[0].gsub(/\D/, '').to_i,
+    naturalized_citizens:line[1].gsub(/\D/, '').to_i,
+    non_citizens: line[2].gsub(/\D/, '').to_i,
+    american_state: AmericanState.where(state_code: line[3].gsub(/\D/,'').to_i).first,
+    county: County.where(fips_county_id: line[4].gsub(/\D/, '').to_i).first
   )
 end
