@@ -1,24 +1,17 @@
-# README
+# Contriview API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This API is inteded to support the Contriview project, which aims to visualize data to reveal the fundamental role immigrants play in our communities. 
 
-Things you may want to cover:
+The API returns immigrant population totals, which can be used to analyize economic contribution.
 
-* Ruby version
+# API Endpoints
 
-* System dependencies
+For a list of all U.S. states with total population, and total immigrant population, you can use the root: `https://ronchon-saucisson-75193.herokuapp.com/`.
 
-* Configuration
+To retrieve the counties in each state, use this endpoint: 
+`https://ronchon-saucisson-75193.herokuapp.com/state/<state_name>`.
 
-* Database creation
+To retrieve data on each individual county, use this endpoint: 
+`https://ronchon-saucisson-75193.herokuapp.com/county/<state_name>/<county_name>`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+All data sources from [US Census](http://api.census.gov/data/2015/acs5/)
