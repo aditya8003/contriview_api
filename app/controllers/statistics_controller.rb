@@ -13,11 +13,11 @@ class StatisticsController < ApplicationController
   end
 
   def show
-    state = AmericanState.includes(:populations).where(state_name: params[:state].titleize)
+    state = AmericanState.includes(:counties).where(state_name: params[:state].titleize)
     @state = state.map { |state|
       {
         state: state.state_name,
-        counties: state.populations.map { |p| p.county.county_name }.sort
+        counties: state.counties.map { |c| c.county_name }.sort
       }
     }
     render json: @state
