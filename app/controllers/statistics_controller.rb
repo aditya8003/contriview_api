@@ -13,7 +13,7 @@ class StatisticsController < ApplicationController
   end
 
   def show
-    state = AmericanState.includes(:counties).where(state_name: params[:state].titleize)
+    state = AmericanState.where(state_name: params[:state].titleize)
     @state = state.map { |state|
       {
         state: state.state_name,
